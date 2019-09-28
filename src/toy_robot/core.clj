@@ -8,20 +8,36 @@
 (def events (atom []))
 
 (defn add-event [event] (swap! events conj event))
+(defn print-usage [] (println "Valid commands are PLACE, MOVE, LEFT, RIGHT, REPORT and QUIT"))
 
-(defn main-loop []
-  (loop []
-    (let [in (read-line)]
-      (cond
-        (input/validate-place in) (do (add-event (events/place in)) (recur))
-        (input/validate-turn in) (do (add-event (events/turn in)) (recur))
-        (input/validate-move in) (do (add-event (events/move in)) (recur))
+(defn process-input [in]
+  (cond
+    (input/validate-place in) (add-event (events/place in))
+    (input/validate-turn in) (add-event (events/turn in))
+    (input/validate-move in)  (add-event (events/move in))
 
-        (input/validate-quit in) (System/exit 0)
-        (input/validate-report in) (do (reporting/report @events) (recur))
-        :else (recur)))))
+    (input/validate-quit in) (System/exit 0)
+    (input/validate-report in)  (reporting/report @events)
+    :else (print-usage)))
+
+(defn main-loop
+  ([]
+   (loop []
+     (let [in (read-line)]
+       (process-input in)
+       (recur))))
+
+  ([lines] (dorun (map process-input lines))))
+
+(defn get-lines [file]
+  (-> file
+      slurp
+      (clojure.string/split-lines)))
 
 (defn -main
-  [& _]
+  [& args]
   (println "Booting up Toy Robot...beep...bop...")
-  (main-loop))
+
+  (if-not (empty? args)
+    (main-loop (get-lines (first args)))
+    (main-loop)))

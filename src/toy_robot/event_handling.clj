@@ -32,10 +32,10 @@
 (defn valid-state? [state]
   (let [{:keys [x y]} state]
     (and
-     (> x 0)
-     (> y 0)
-     (< x config/board-size)
-     (< y config/board-size))))
+      (>= x 0)
+      (>= y 0)
+      (< x config/board-size)
+      (< y config/board-size))))
 
 (defn event-source [prev-state event]
   (let [next-state (next-state prev-state event)]
