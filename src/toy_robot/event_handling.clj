@@ -2,6 +2,7 @@
   (:require [toy-robot.config :as config]
             [toy-robot.direction :refer [direction-left direction-right]]))
 
+;; handle events
 (defn handle-move [prev]
   (let [{:keys [direction]} prev]
     (case direction
@@ -20,6 +21,7 @@
   (let [{{:keys [direction x y]} :value} event]
     {:direction direction :x x :y y}))
 
+;; calculate the next state
 (defn next-state [state event]
   (let [{:keys [type]} event]
     (case type
@@ -41,5 +43,6 @@
 
 (def default-state {:direction nil :x nil :y nil})
 
+;; reducer to get current state
 (defn reduce-events [events]
   (reduce event-source default-state events))
