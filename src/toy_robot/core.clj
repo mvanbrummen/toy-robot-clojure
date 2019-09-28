@@ -1,8 +1,21 @@
 (ns toy-robot.core
-  (:require [clojure.core.match :refer [match]])
+  (:require [clojure.core.match :refer [match]]
+            [clojure.string :refer [lower-case upper-case replace]])
   (:gen-class))
 
 (def direction [:north :east :south :west])
+
+(defn string->direction [str]
+  (-> str
+      (lower-case)
+      (keyword)))
+
+(defn direction->string [dir]
+  (-> dir
+      (str)
+      (upper-case)
+      (replace #":" "")
+      ))
 
 (def app-state (atom {:direction nil :coords {:x nil :y nil}}))
 
@@ -12,7 +25,7 @@
    (nil? (get-in @app-state [:coords :x]))
    (nil? (get-in @app-state [:coords :y]))))
 
-(defn report [] (str (:direction @app-state) "," (get-in @app-state [:coords :x]) "," (get-in @app-state [:coords :y])))
+(defn report [] (str (direction->string (:direction @app-state)) "," (get-in @app-state [:coords :x]) "," (get-in @app-state [:coords :y])))
 
 (defn re-match-place [str]  (re-matches #"PLACE (\d),(\d),(NORTH|EAST|WEST|SOUTH)" str))
 
@@ -25,7 +38,7 @@
 
 (defn place [args]
   (let [[str x y direction] args]
-    (swap! app-state merge {:direction direction :coords {:x  (Integer. x) :y (Integer. y)}})))
+    (swap! app-state merge {:direction (string->direction direction) :coords {:x  (Integer. x) :y (Integer. y)}})))
 
 (defn main-loop []
   (loop [in (read-line)]
