@@ -15,9 +15,9 @@
   (loop []
     (let [in (read-line)]
       (cond
-        (input/validate-place in) (do (swap! events conj (events/place-event in)) (recur))
-        (input/validate-turn in) (do (swap! events conj (events/turn-event in)) (recur))
-        (input/validate-move in) (do (swap! events conj (events/move-event in)) (recur))
+        (input/validate-place in) (do (swap! events conj (events/place in)) (recur))
+        (input/validate-turn in) (do (swap! events conj (events/turn in)) (recur))
+        (input/validate-move in) (do (swap! events conj (events/move in)) (recur))
 
         (input/validate-quit in) (System/exit 0)
         (input/validate-report in) (do (println (reporting/report @events)) (recur))

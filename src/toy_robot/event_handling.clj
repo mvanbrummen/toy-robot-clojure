@@ -25,5 +25,5 @@
   (let [next-state (next-state prev-state event)]
     (if (valid-state? next-state) next-state prev-state)))
 
-(defn apply-events [events]
+(defn reduce-events [events]
   (reduce event-source {:direction nil :x nil :y nil} events))

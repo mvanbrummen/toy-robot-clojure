@@ -4,13 +4,13 @@
              [toy-robot.direction :refer [string->direction]]
              ))
 
-(defn turn-event [input] {:type :turn :value (keyword (lower-case input))})
+(defn turn [input] {:type :turn :value (keyword (lower-case input))})
 
-(defn place-event [input]
+(defn place [input]
   (let [[str x y direction] (re-match-place input)]
     {:type :place
      :value {:x (Integer. x)
              :y (Integer. y)
              :direction (string->direction direction)}}))
 
-(defn move-event [input] {:type :move :value nil})
+(defn move [input] {:type :move :value nil})
