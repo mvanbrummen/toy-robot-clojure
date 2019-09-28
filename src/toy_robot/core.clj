@@ -1,8 +1,5 @@
 (ns toy-robot.core
-  (:require [clojure.core.match :refer [match]]
-            [clojure.string :refer [lower-case upper-case replace]]
-            [toy-robot.config]
-            [toy-robot.input-handling :as input]
+  (:require [toy-robot.input-handling :as input]
             [toy-robot.event-handling :as event-handling]
             [toy-robot.events :as events]
             [toy-robot.reporting :as reporting])
