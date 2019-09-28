@@ -1,5 +1,5 @@
 (ns toy-robot.direction
-  (:require [clojure.string :refer [lower-case upper-case]]))
+  (:require [clojure.string :refer [lower-case upper-case replace]]))
 
 (def direction [:north :east :south :west])
 

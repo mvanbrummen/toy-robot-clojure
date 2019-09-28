@@ -1,9 +1,9 @@
 (ns toy-robot.reporting
   (:require [toy-robot.event-handling :as event-handling]
-            [toy-robot.direction :as direction]))
+            [toy-robot.direction :refer [direction->string]]))
 
 (defn report [events]
   (let [state (event-handling/apply-events events)]
-    (str  (:direction state) "," (:x state) "," (:y state))))
+    (str  (direction->string (:direction state)) "," (:x state) "," (:y state))))
 
 
