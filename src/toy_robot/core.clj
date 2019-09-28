@@ -7,13 +7,15 @@
 
 (def events (atom []))
 
+(defn add-event [event] (swap! events conj event))
+
 (defn main-loop []
   (loop []
     (let [in (read-line)]
       (cond
-        (input/validate-place in) (do (swap! events conj (events/place in)) (recur))
-        (input/validate-turn in) (do (swap! events conj (events/turn in)) (recur))
-        (input/validate-move in) (do (swap! events conj (events/move in)) (recur))
+        (input/validate-place in) (do (add-event (events/place in)) (recur))
+        (input/validate-turn in) (do (add-event (events/turn in)) (recur))
+        (input/validate-move in) (do (add-event (events/move in)) (recur))
 
         (input/validate-quit in) (System/exit 0)
         (input/validate-report in) (do (reporting/report @events) (recur))
