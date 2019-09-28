@@ -16,7 +16,7 @@
     {:direction direction :x x :y y}))
 
 (defn next-state [state event]
-  (let [type (:type event)]
+  (let [{:keys [type]} event]
     (case type
       :turn (handle-turn state event)
       :place (handle-place event)
