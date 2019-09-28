@@ -3,7 +3,7 @@
             [toy-robot.direction :refer [direction->string]]))
 
 (defn report [events]
-  (let [state (event-handling/reduce-events events)]
-    (str (direction->string (:direction state)) "," (:x state) "," (:y state))))
+  (let [{:keys [direction x y]} (event-handling/reduce-events events)]
+    (str (direction->string direction) "," x "," y)))
 
 
