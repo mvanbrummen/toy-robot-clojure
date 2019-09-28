@@ -1,7 +1,13 @@
 (ns toy-robot.event-handling
   (:require [toy-robot.config :as config]))
 
-(defn handle-move [prev])
+(defn handle-move [prev]
+  (let [{:keys [direction]} prev]
+    (case direction
+      :north (update prev :x inc)
+      :east (update prev :y inc)
+      :south (update prev :x dec)
+      :west (update prev :y dec))))
 
 (defn handle-turn [prev event])
 
