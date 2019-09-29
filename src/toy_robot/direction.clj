@@ -21,11 +21,11 @@
 
 (defn string->direction [str]
   (-> str
-      (lower-case)
-      (keyword)))
+      lower-case
+      keyword))
 
 (defn direction->string [dir]
   (-> dir
-      (str)
-      (upper-case)
+      str
+      upper-case
       (replace #":" "")))
