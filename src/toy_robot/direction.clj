@@ -15,7 +15,7 @@
   (case dir
     :north :east
     :east :south
-    :south :east
+    :south :west
     :west :north
     :else dir))
 
